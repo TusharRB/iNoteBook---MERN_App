@@ -1,4 +1,5 @@
 import React from 'react' // rafc
+import Notes from './Notes';
 
 const Home = () => {
     return (
@@ -22,11 +23,7 @@ const Home = () => {
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
-
-            <div className="container">
-                <h1>Your Notes</h1>
-            </div>
-
+            <Notes />
         </div>
     )
 }
