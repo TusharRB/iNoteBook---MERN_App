@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
 
 const Login = (props) => {
-    const [credentials, setCredentials] = useState({email: "", password: ""}) 
+    const [credentials, setCredentials] = useState({ email: "", password: "" })
     // let history = useHistory();
     const navigate = useNavigate();
 
@@ -15,28 +15,30 @@ const Login = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email: credentials.email, password: credentials.password})
+            body: JSON.stringify({ email: credentials.email, password: credentials.password })
         });
         const json = await response.json()
         console.log(json);
-        if (json.success){
+        if (json.success) {
             // Save the auth token and redirect
-            localStorage.setItem('token', json.authtoken); 
+            localStorage.setItem('token', json.authtoken);
+            props.showAlert("Login Successfully", "success");
             navigate("/");
 
         }
-        else{
-            alert("Invalid credentials");
+        else {
+            props.showAlert("Invalid Credentials", "danger");
         }
     }
 
-    const onChange = (e)=>{
-        setCredentials({...credentials, [e.target.name]: e.target.value})
+    const onChange = (e) => {
+        setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
 
     return (
-        <div>
-            <form  onSubmit={handleSubmit}>
+        <div className='mt-4'>
+            <h2 className='my-3'> Login to continue to iNotebook</h2>
+            <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" className="form-control" value={credentials.email} onChange={onChange} id="email" name="email" aria-describedby="emailHelp" />
